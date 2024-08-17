@@ -1,0 +1,5 @@
+i radio del primo gruppo sono mutuamente esclusivi (una e una selezione per
+quaterna di parole) 
+quando si preme il tasto "Visualizza Report" occorre
+controllare che per ciascuna quaterna sia stato selezionato uno e un solo radio
+per il primo gruppo e uno e un solo radio per il secondo
