@@ -31,16 +31,16 @@
         // Definizione delle quaterne con parole e valori associati
         const quaterne = [
             [
-                { parola: "Cane", val1: 1, val2: 5 },
-                { parola: "Gatto", val1: 2, val2: 4 },
-                { parola: "Topo", val1: 3, val2: 3 },
-                { parola: "Uccello", val1: 4, val2: 2 }
+                { parola: "Cane", val1: "D", val2: "I" },
+                { parola: "Gatto", val1: "S", val2: "C" },
+                { parola: "Topo", val1: "I", val2: "S" },
+                { parola: "Uccello", val1: "C", val2: "D" }
             ],
             [
-                { parola: "Rosso", val1: 2, val2: 3 },
-                { parola: "Blu", val1: 3, val2: 2 },
-                { parola: "Verde", val1: 4, val2: 1 },
-                { parola: "Giallo", val1: 1, val2: 4 }
+                { parola: "Rosso", val1: "I", val2: "S" },
+                { parola: "Blu", val1: "C", val2: "D" },
+                { parola: "Verde", val1: "D", val2: "I" },
+                { parola: "Giallo", val1: "S", val2: "C" }
             ],
             // Aggiungi altre quaterne se necessario
         ];
@@ -82,8 +82,8 @@
 
         // Funzione per calcolare e mostrare il report
         function showReport() {
-            let countGroup1 = 0;
-            let countGroup2 = 0;
+            let countGroup1 = { D: 0, I: 0, S: 0, C: 0 };
+            let countGroup2 = { D: 0, I: 0, S: 0, C: 0 };
 
             quaterne.forEach((quaterna, index) => {
                 quaterna.forEach((item, idx) => {
@@ -91,10 +91,10 @@
                     const selectedGroup2 = document.querySelector(`input[name="group2-${index}-${idx}"]:checked`);
 
                     if (selectedGroup1) {
-                        countGroup1 += parseInt(selectedGroup1.value);
+                        countGroup1[selectedGroup1.value]++;
                     }
                     if (selectedGroup2) {
-                        countGroup2 += parseInt(selectedGroup2.value);
+                        countGroup2[selectedGroup2.value]++;
                     }
                 });
             });
@@ -102,8 +102,20 @@
             const reportContainer = document.getElementById("report-container");
             reportContainer.innerHTML = `
                 <h2>Report</h2>
-                <p>Totale valori del primo gruppo di radio: ${countGroup1}</p>
-                <p>Totale valori del secondo gruppo di radio: ${countGroup2}</p>
+                <p>Totale valori del primo gruppo di radio:</p>
+                <ul>
+                    <li>D: ${countGroup1.D}</li>
+                    <li>I: ${countGroup1.I}</li>
+                    <li>S: ${countGroup1.S}</li>
+                    <li>C: ${countGroup1.C}</li>
+                </ul>
+                <p>Totale valori del secondo gruppo di radio:</p>
+                <ul>
+                    <li>D: ${countGroup2.D}</li>
+                    <li>I: ${countGroup2.I}</li>
+                    <li>S: ${countGroup2.S}</li>
+                    <li>C: ${countGroup2.C}</li>
+                </ul>
             `;
         }
 

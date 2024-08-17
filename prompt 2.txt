@@ -1,0 +1,4 @@
+specifico meglio 
+i valori associati a ciascun radio sono delle lettere, in particolare D, I , S, C
+al termine il report deve contare, per la prima serie di radio quante D, quante I ecc. sono state selezionate
+Idem per la seconda serie di radio
