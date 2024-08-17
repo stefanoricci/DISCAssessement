@@ -66,13 +66,13 @@
 
                     const radio1 = document.createElement("input");
                     radio1.type = "radio";
-                    radio1.name = `group1-${index}`;
+                    radio1.name = group1-${index};
                     radio1.value = item.val1;
                     wordGroup.appendChild(radio1);
 
                     const radio2 = document.createElement("input");
                     radio2.type = "radio";
-                    radio2.name = `group2-${index}-${idx}`;
+                    radio2.name = group2-${index};
                     radio2.value = item.val2;
                     wordGroup.appendChild(radio2);
 
@@ -90,7 +90,7 @@
             let isSelectionValid = true;
 
             quaterne.forEach((quaterna, index) => {
-                const selectedGroup1 = document.querySelector(`input[name="group1-${index}"]:checked`);
+                const selectedGroup1 = document.querySelector(input[name="group1-${index}"]:checked);
 
                 if (!selectedGroup1) {
                     isSelectionValid = false;
@@ -98,18 +98,11 @@
                     countGroup1[selectedGroup1.value]++;
                 }
 
-                let group2Selected = false;
-
-                quaterna.forEach((item, idx) => {
-                    const selectedGroup2 = document.querySelector(`input[name="group2-${index}-${idx}"]:checked`);
-                    if (selectedGroup2) {
-                        countGroup2[selectedGroup2.value]++;
-                        group2Selected = true;
-                    }
-                });
-
-                if (!group2Selected) {
+                const selectedGroup2 = document.querySelector(input[name="group2-${index}"]:checked);
+                if (!selectedGroup2) {
                     isSelectionValid = false;
+                } else {
+                    countGroup2[selectedGroup2.value]++;
                 }
             });
 
