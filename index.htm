@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quaterne di Parole</title>
+    <style>
+        .quaterna {
+            margin-bottom: 20px;
+        }
+        .word-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .word {
+            width: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quaterne di Parole</h1>
+
+    <div id="quaterne-container"></div>
+
+    <button onclick="showReport()">Mostra Report</button>
+
+    <div id="report-container" style="margin-top: 20px;"></div>
+
+    <script>
+        // Definizione delle quaterne con parole e valori associati
+        const quaterne = [
+            [
+                { parola: "Cane", val1: 1, val2: 5 },
+                { parola: "Gatto", val1: 2, val2: 4 },
+                { parola: "Topo", val1: 3, val2: 3 },
+                { parola: "Uccello", val1: 4, val2: 2 }
+            ],
+            [
+                { parola: "Rosso", val1: 2, val2: 3 },
+                { parola: "Blu", val1: 3, val2: 2 },
+                { parola: "Verde", val1: 4, val2: 1 },
+                { parola: "Giallo", val1: 1, val2: 4 }
+            ],
+            // Aggiungi altre quaterne se necessario
+        ];
+
+        // Funzione per generare l'HTML delle quaterne con radio button
+        function generateQuaterneHTML() {
+            const container = document.getElementById("quaterne-container");
+            quaterne.forEach((quaterna, index) => {
+                const quaternaDiv = document.createElement("div");
+                quaternaDiv.className = "quaterna";
+
+                quaterna.forEach((item, idx) => {
+                    const wordGroup = document.createElement("div");
+                    wordGroup.className = "word-group";
+
+                    const wordSpan = document.createElement("span");
+                    wordSpan.className = "word";
+                    wordSpan.textContent = item.parola;
+                    wordGroup.appendChild(wordSpan);
+
+                    const radio1 = document.createElement("input");
+                    radio1.type = "radio";
+                    radio1.name = `group1-${index}-${idx}`;
+                    radio1.value = item.val1;
+                    wordGroup.appendChild(radio1);
+
+                    const radio2 = document.createElement("input");
+                    radio2.type = "radio";
+                    radio2.name = `group2-${index}-${idx}`;
+                    radio2.value = item.val2;
+                    wordGroup.appendChild(radio2);
+
+                    quaternaDiv.appendChild(wordGroup);
+                });
+
+                container.appendChild(quaternaDiv);
+            });
+        }
+
+        // Funzione per calcolare e mostrare il report
+        function showReport() {
+            let countGroup1 = 0;
+            let countGroup2 = 0;
+
+            quaterne.forEach((quaterna, index) => {
+                quaterna.forEach((item, idx) => {
+                    const selectedGroup1 = document.querySelector(`input[name="group1-${index}-${idx}"]:checked`);
+                    const selectedGroup2 = document.querySelector(`input[name="group2-${index}-${idx}"]:checked`);
+
+                    if (selectedGroup1) {
+                        countGroup1 += parseInt(selectedGroup1.value);
+                    }
+                    if (selectedGroup2) {
+                        countGroup2 += parseInt(selectedGroup2.value);
+                    }
+                });
+            });
+
+            const reportContainer = document.getElementById("report-container");
+            reportContainer.innerHTML = `
+                <h2>Report</h2>
+                <p>Totale valori del primo gruppo di radio: ${countGroup1}</p>
+                <p>Totale valori del secondo gruppo di radio: ${countGroup2}</p>
+            `;
+        }
+
+        // Genera l'HTML delle quaterne al caricamento della pagina
+        window.onload = generateQuaterneHTML;
+    </script>
+</body>
+</html>

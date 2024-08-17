@@ -1,0 +1,12 @@
+crea una pagina html con uno script javascript che presenti delle quaterne di
+parole con due serie di radio button a fianco di ciascun elemento della
+quaterna. 
+I valori associati alla alla scelta dei due gruppi di radio button
+(per ciascuna quaterna) sono associati alle parole in una struttura statica
+javascript le quaterne sono un array, i cui elementi sono a loro volta un array
+di struct composte da parola, valore associato alla prima scelta, valore
+associato alla seconda scelta. 
+Al termine della compilazione, sulla pressione di
+un bottone, deve essere mostrato un report che contenga il conteggio dei valori
+della prima serie di radio e il conteggio dei valori della seconda serie di
+radio
