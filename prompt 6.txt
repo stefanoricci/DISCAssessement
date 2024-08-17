@@ -1,0 +1,3 @@
+due modifiche
+1. metti i due report affiancati e riduci la dimensione verticale al 20% della attuale
+2. aggiungi un bottone che, sulla pressione, permetta di inserire un indirizzo di mail e che mandi a tale indirizzo il report

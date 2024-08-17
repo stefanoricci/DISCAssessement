@@ -19,12 +19,20 @@
         .error {
             color: red;
         }
+        .report-section {
+            display: inline-block;
+            vertical-align: top;
+            width: 45%;
+        }
         canvas {
-            max-width: 400px;
+            max-width: 100%;
+            height: 20vh;
+            margin-top: 20px;
+        }
+        .email-input {
             margin-top: 20px;
         }
     </style>
-    <!-- Includi la libreria Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -36,8 +44,12 @@
 
     <div id="report-container" style="margin-top: 20px;"></div>
 
+    <div class="email-input">
+        <input type="email" id="email-address" placeholder="Inserisci il tuo indirizzo email">
+        <button onclick="sendEmail()">Invia Report via Email</button>
+    </div>
+
     <script>
-        // Definizione delle quaterne con parole e valori associati
         const quaterne = [
             [
                 { parola: "Cane", val1: "D", val2: "I" },
@@ -51,10 +63,8 @@
                 { parola: "Verde", val1: "D", val2: "I" },
                 { parola: "Giallo", val1: "S", val2: "C" }
             ],
-            // Aggiungi altre quaterne se necessario
         ];
 
-        // Funzione per generare l'HTML delle quaterne con radio button
         function generateQuaterneHTML() {
             const container = document.getElementById("quaterne-container");
             quaterne.forEach((quaterna, index) => {
@@ -89,7 +99,6 @@
             });
         }
 
-        // Funzione per calcolare e mostrare il report con grafico
         function showReport() {
             let countGroup1 = { D: 0, I: 0, S: 0, C: 0 };
             let countGroup2 = { D: 0, I: 0, S: 0, C: 0 };
@@ -119,23 +128,26 @@
                 reportContainer.innerHTML = `<p class="error">Errore: assicurati di selezionare una opzione per ogni parola in entrambe le serie di radio button per ciascuna quaterna.</p>`;
             } else {
                 reportContainer.innerHTML = `
-                    <h2>Report</h2>
-                    <p>Totale valori del primo gruppo di radio:</p>
-                    <ul>
-                        <li>D: ${countGroup1.D}</li>
-                        <li>I: ${countGroup1.I}</li>
-                        <li>S: ${countGroup1.S}</li>
-                        <li>C: ${countGroup1.C}</li>
-                    </ul>
-                    <canvas id="chartGroup1"></canvas>
-                    <p>Totale valori del secondo gruppo di radio:</p>
-                    <ul>
-                        <li>D: ${countGroup2.D}</li>
-                        <li>I: ${countGroup2.I}</li>
-                        <li>S: ${countGroup2.S}</li>
-                        <li>C: ${countGroup2.C}</li>
-                    </ul>
-                    <canvas id="chartGroup2"></canvas>
+                    <div class="report-section">
+                        <h2>Report Gruppo 1</h2>
+                        <ul>
+                            <li>D: ${countGroup1.D}</li>
+                            <li>I: ${countGroup1.I}</li>
+                            <li>S: ${countGroup1.S}</li>
+                            <li>C: ${countGroup1.C}</li>
+                        </ul>
+                        <canvas id="chartGroup1"></canvas>
+                    </div>
+                    <div class="report-section">
+                        <h2>Report Gruppo 2</h2>
+                        <ul>
+                            <li>D: ${countGroup2.D}</li>
+                            <li>I: ${countGroup2.I}</li>
+                            <li>S: ${countGroup2.S}</li>
+                            <li>C: ${countGroup2.C}</li>
+                        </ul>
+                        <canvas id="chartGroup2"></canvas>
+                    </div>
                 `;
 
                 // Disegna il grafico per il primo gruppo
@@ -186,7 +198,32 @@
             }
         }
 
-        // Genera l'HTML delle quaterne al caricamento della pagina
+        function sendEmail() {
+            const email = document.getElementById('email-address').value;
+            if (!email) {
+                alert("Per favore, inserisci un indirizzo email valido.");
+                return;
+            }
+
+            const reportHtml = document.getElementById("report-container").innerHTML;
+
+            const emailContent = `
+                <html>
+                <head>
+                    <title>Report</title>
+                </head>
+                <body>
+                    <h2>Il tuo report</h2>
+                    ${reportHtml}
+                </body>
+                </html>
+            `;
+
+            // Inviare l'email tramite un servizio esterno è una funzionalità avanzata e richiede un server backend o un servizio email
+            alert("Il report sarà inviato a: " + email);
+            // Qui dovresti implementare il codice per inviare l'email tramite il backend
+        }
+
         window.onload = generateQuaterneHTML;
     </script>
 </body>
