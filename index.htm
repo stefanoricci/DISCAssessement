@@ -19,7 +19,13 @@
         .error {
             color: red;
         }
+        canvas {
+            max-width: 400px;
+            margin-top: 20px;
+        }
     </style>
+    <!-- Includi la libreria Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <h1>Quaterne di Parole</h1>
@@ -66,13 +72,13 @@
 
                     const radio1 = document.createElement("input");
                     radio1.type = "radio";
-                    radio1.name = group1-${index};
+                    radio1.name = `group1-${index}`;
                     radio1.value = item.val1;
                     wordGroup.appendChild(radio1);
 
                     const radio2 = document.createElement("input");
                     radio2.type = "radio";
-                    radio2.name = group2-${index};
+                    radio2.name = `group2-${index}`;
                     radio2.value = item.val2;
                     wordGroup.appendChild(radio2);
 
@@ -83,14 +89,14 @@
             });
         }
 
-        // Funzione per calcolare e mostrare il report
+        // Funzione per calcolare e mostrare il report con grafico
         function showReport() {
             let countGroup1 = { D: 0, I: 0, S: 0, C: 0 };
             let countGroup2 = { D: 0, I: 0, S: 0, C: 0 };
             let isSelectionValid = true;
 
             quaterne.forEach((quaterna, index) => {
-                const selectedGroup1 = document.querySelector(input[name="group1-${index}"]:checked);
+                const selectedGroup1 = document.querySelector(`input[name="group1-${index}"]:checked`);
 
                 if (!selectedGroup1) {
                     isSelectionValid = false;
@@ -98,7 +104,7 @@
                     countGroup1[selectedGroup1.value]++;
                 }
 
-                const selectedGroup2 = document.querySelector(input[name="group2-${index}"]:checked);
+                const selectedGroup2 = document.querySelector(`input[name="group2-${index}"]:checked`);
                 if (!selectedGroup2) {
                     isSelectionValid = false;
                 } else {
@@ -121,6 +127,7 @@
                         <li>S: ${countGroup1.S}</li>
                         <li>C: ${countGroup1.C}</li>
                     </ul>
+                    <canvas id="chartGroup1"></canvas>
                     <p>Totale valori del secondo gruppo di radio:</p>
                     <ul>
                         <li>D: ${countGroup2.D}</li>
@@ -128,7 +135,54 @@
                         <li>S: ${countGroup2.S}</li>
                         <li>C: ${countGroup2.C}</li>
                     </ul>
+                    <canvas id="chartGroup2"></canvas>
                 `;
+
+                // Disegna il grafico per il primo gruppo
+                const ctx1 = document.getElementById('chartGroup1').getContext('2d');
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['D', 'I', 'S', 'C'],
+                        datasets: [{
+                            label: 'Conteggio gruppo 1',
+                            data: [countGroup1.D, countGroup1.I, countGroup1.S, countGroup1.C],
+                            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+                // Disegna il grafico per il secondo gruppo
+                const ctx2 = document.getElementById('chartGroup2').getContext('2d');
+                new Chart(ctx2, {
+                    type: 'bar',
+                    data: {
+                        labels: ['D', 'I', 'S', 'C'],
+                        datasets: [{
+                            label: 'Conteggio gruppo 2',
+                            data: [countGroup2.D, countGroup2.I, countGroup2.S, countGroup2.C],
+                            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                            borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
             }
         }
 

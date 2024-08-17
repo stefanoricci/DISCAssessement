@@ -1,0 +1,1 @@
+a partire dal mio codice modificato, aggiungi il disegno di un istogramma ad entrambi i conteggi (primo e secondo gruppo)
