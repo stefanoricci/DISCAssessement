@@ -1,0 +1,143 @@
+ho corretto il codice
+analizza e dimmi cosa ho modificato e perché
+
+ecco il codice:
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quaterne di Parole</title>
+    <style>
+        .quaterna {
+            margin-bottom: 20px;
+        }
+        .word-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .word {
+            width: 100px;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Quaterne di Parole</h1>
+
+    <div id="quaterne-container"></div>
+
+    <button onclick="showReport()">Mostra Report</button>
+
+    <div id="report-container" style="margin-top: 20px;"></div>
+
+    <script>
+        // Definizione delle quaterne con parole e valori associati
+        const quaterne = [
+            [
+                { parola: "Cane", val1: "D", val2: "I" },
+                { parola: "Gatto", val1: "S", val2: "C" },
+                { parola: "Topo", val1: "I", val2: "S" },
+                { parola: "Uccello", val1: "C", val2: "D" }
+            ],
+            [
+                { parola: "Rosso", val1: "I", val2: "S" },
+                { parola: "Blu", val1: "C", val2: "D" },
+                { parola: "Verde", val1: "D", val2: "I" },
+                { parola: "Giallo", val1: "S", val2: "C" }
+            ],
+            // Aggiungi altre quaterne se necessario
+        ];
+
+        // Funzione per generare l'HTML delle quaterne con radio button
+        function generateQuaterneHTML() {
+            const container = document.getElementById("quaterne-container");
+            quaterne.forEach((quaterna, index) => {
+                const quaternaDiv = document.createElement("div");
+                quaternaDiv.className = "quaterna";
+
+                quaterna.forEach((item, idx) => {
+                    const wordGroup = document.createElement("div");
+                    wordGroup.className = "word-group";
+
+                    const wordSpan = document.createElement("span");
+                    wordSpan.className = "word";
+                    wordSpan.textContent = item.parola;
+                    wordGroup.appendChild(wordSpan);
+
+                    const radio1 = document.createElement("input");
+                    radio1.type = "radio";
+                    radio1.name = group1-${index};
+                    radio1.value = item.val1;
+                    wordGroup.appendChild(radio1);
+
+                    const radio2 = document.createElement("input");
+                    radio2.type = "radio";
+                    radio2.name = group2-${index};
+                    radio2.value = item.val2;
+                    wordGroup.appendChild(radio2);
+
+                    quaternaDiv.appendChild(wordGroup);
+                });
+
+                container.appendChild(quaternaDiv);
+            });
+        }
+
+        // Funzione per calcolare e mostrare il report
+        function showReport() {
+            let countGroup1 = { D: 0, I: 0, S: 0, C: 0 };
+            let countGroup2 = { D: 0, I: 0, S: 0, C: 0 };
+            let isSelectionValid = true;
+
+            quaterne.forEach((quaterna, index) => {
+                const selectedGroup1 = document.querySelector(input[name="group1-${index}"]:checked);
+
+                if (!selectedGroup1) {
+                    isSelectionValid = false;
+                } else {
+                    countGroup1[selectedGroup1.value]++;
+                }
+
+                const selectedGroup2 = document.querySelector(input[name="group2-${index}"]:checked);
+                if (!selectedGroup2) {
+                    isSelectionValid = false;
+                } else {
+                    countGroup2[selectedGroup2.value]++;
+                }
+            });
+
+            const reportContainer = document.getElementById("report-container");
+            reportContainer.innerHTML = "";
+
+            if (!isSelectionValid) {
+                reportContainer.innerHTML = <p class="error">Errore: assicurati di selezionare una opzione per ogni parola in entrambe le serie di radio button per ciascuna quaterna.</p>;
+            } else {
+                reportContainer.innerHTML = 
+                    <h2>Report</h2>
+                    <p>Totale valori del primo gruppo di radio:</p>
+                    <ul>
+                        <li>D: ${countGroup1.D}</li>
+                        <li>I: ${countGroup1.I}</li>
+                        <li>S: ${countGroup1.S}</li>
+                        <li>C: ${countGroup1.C}</li>
+                    </ul>
+                    <p>Totale valori del secondo gruppo di radio:</p>
+                    <ul>
+                        <li>D: ${countGroup2.D}</li>
+                        <li>I: ${countGroup2.I}</li>
+                        <li>S: ${countGroup2.S}</li>
+                        <li>C: ${countGroup2.C}</li>
+                    </ul>
+                ;
+            }
+        }
+
+        // Genera l'HTML delle quaterne al caricamento della pagina
+        window.onload = generateQuaterneHTML;
+    </script>
+</body>
+</html>
